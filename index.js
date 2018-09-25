@@ -1,21 +1,14 @@
 const { GraphQLServer } = require('graphql-yoga')
-
-const typeDefs = `
-  type Query {
-    ping: String!
-  }
-`
-
-const resolvers = {
-  Query: {
-    ping: () => 'pong'
-  }
-}
+const { typeDefs, resolvers } = require('./src/resolvers')
 
 const server = new GraphQLServer({
   typeDefs,
-  resolvers,
-  port: process.env.PORT
+  resolvers
 })
 
-server.start(() => console.log(`Server is running on localhost:${process.env.PORT || 4000}`))
+server.start({
+  port: process.env.PORT,
+  endpoint: '/graphql',
+  subscriptions: '/subscriptions',
+  playground: '/playground'
+}, ({ port }) => console.log(`Server is running on localhost:${port}`))
