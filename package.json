@@ -6,7 +6,9 @@
   "scripts": {
     "sync": "node bin/sync.js",
     "lint": "eslint --ignore-path .gitignore .",
-    "lint:fix": "eslint --ignore-path .gitignore --fix ."
+    "lint:fix": "eslint --ignore-path .gitignore --fix .",
+    "migrate": "sequelize db:migrate --config ./config/db.json --migrations-path ./db/migrations --models-path ./db/_schemas",
+    "migrate:undo": "sequelize db:migrate:undo --config ./config/db.json --migrations-path ./db/migrations --models-path ./db/_schemas"
   },
   "author": "",
   "license": "ISC",
