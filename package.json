@@ -16,6 +16,7 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
+    "graphql-iso-date": "^3.6.1",
     "graphql-type-json": "^0.2.1",
     "graphql-yoga": "^1.16.2",
     "lodash": "^4.17.11"
