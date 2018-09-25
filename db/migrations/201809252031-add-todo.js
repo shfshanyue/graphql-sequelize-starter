@@ -13,7 +13,13 @@ module.exports = {
       },
       status: {
         type: Sequelize.ENUM('DONE', 'UNDO'),
-        allowNull: false
+        allowNull: false,
+        defaultValue: 'UNDO'
+      },
+      createTime: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW
       }
     })
   },

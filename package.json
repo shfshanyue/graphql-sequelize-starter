@@ -10,7 +10,9 @@
     "lint": "eslint --ignore-path .gitignore .",
     "lint:fix": "eslint --ignore-path .gitignore --fix .",
     "migrate": "sequelize db:migrate --config ./config/db.json --migrations-path ./db/migrations --models-path ./db/_schemas",
-    "migrate:undo": "sequelize db:migrate:undo --config ./config/db.json --migrations-path ./db/migrations --models-path ./db/_schemas"
+    "migrate:undo": "sequelize db:migrate:undo --config ./config/db.json --migrations-path ./db/migrations --models-path ./db/_schemas",
+    "seed": "sequelize db:seed:all --config ./config/db.json --seeders-path ./db/seeders --models-path ./db/_schemas",
+    "seed:undo": "sequelize db:seed:undo --config ./config/db.json --seeders-path ./db/seeders --models-path ./db/_schemas"
   },
   "author": "",
   "license": "ISC",
