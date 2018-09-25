@@ -8,7 +8,7 @@ rimraf(SCHEMA_PATH, () => {
   console.log('delete schema path DONE!')
 })
 
-const auto = new SequelizeAuto(db.database, db.username, '', {
+const auto = new SequelizeAuto(db.database, db.username, db.password, {
   dialect: 'postgres',
   host: db.host,
   port: db.port,

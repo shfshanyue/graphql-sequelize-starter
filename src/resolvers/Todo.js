@@ -2,14 +2,12 @@ const typeDef = `
   type Todo {
     id: ID!
     name: String!
+    createTime: DateTime!
   }
 `
 
 const resolver = {
   Todo: {
-    name () {
-      return 'todo'
-    }
   }
 }
 

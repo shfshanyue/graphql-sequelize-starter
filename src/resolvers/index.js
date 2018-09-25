@@ -12,11 +12,8 @@ const typeDef = `
 const resolver = {
   Query: {
     ping: () => 'pong',
-    todos () {
-      return [{
-        id: '1',
-        name: 'hello'
-      }]
+    todos (root, args, { models }) {
+      return models.todo.findAll()
     }
   }
 }
