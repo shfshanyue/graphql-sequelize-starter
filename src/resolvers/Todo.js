@@ -1,5 +1,5 @@
 const typeDef = `
-  type Todo {
+  type Todo @sql(table: "todo") {
     id: ID!
     name: String!
     createTime: DateTime!

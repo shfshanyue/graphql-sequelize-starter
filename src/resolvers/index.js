@@ -5,15 +5,17 @@ const _ = require('lodash')
 const typeDef = `
   type Query {
     ping: String!
-    todos: [Todo!]
+    todos: [Todo!] @findOption
   }
 `
 
 const resolver = {
   Query: {
     ping: () => 'pong',
-    todos (root, args, { models }) {
-      return models.todo.findAll()
+    todos (root, args, { models }, { attributes }) {
+      return models.todo.findAll({
+        attributes
+      })
     }
   }
 }

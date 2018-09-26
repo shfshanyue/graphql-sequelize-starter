@@ -2,6 +2,8 @@ const { SchemaDirectiveVisitor } = require('graphql-tools')
 const { defaultFieldResolver } = require('graphql')
 const _ = require('lodash')
 
+const { getAttrs, parsePage } = require('../utils')
+
 class SqlDirective extends SchemaDirectiveVisitor {
   visitObject (object) {
     object.table = this.args.table
@@ -29,6 +31,25 @@ class SqlDirective extends SchemaDirectiveVisitor {
   }
 }
 
+class FindOptionDirective extends SchemaDirectiveVisitor {
+  visitFieldDefinition (field) {
+    const { resolve } = field
+
+    field.resolve = async (root, args, context, info) => {
+      const attributes = getAttrs(info, context.models)
+      const { page, pageSize } = args
+      const { limit, offset } = parsePage(page, pageSize)
+      return resolve.call(this, root, args, context, {
+        ...info,
+        attributes,
+        limit,
+        offset
+      })
+    }
+  }
+}
+
 module.exports = {
-  sql: SqlDirective
+  sql: SqlDirective,
+  findOption: FindOptionDirective
 }

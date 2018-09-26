@@ -2,6 +2,25 @@ const _ = require('lodash')
 const { simplifyAST } = require('graphql-sequelize')
 
 /**
+ * 分页, 不传参数为获取全部，对于负值进行容错处理
+ *
+ * @returns {Number} limit
+ * @returns {Number} offset
+ */
+function parsePage (page, pageSize) {
+  if (pageSize < 1 || !pageSize) {
+    pageSize = page > 0 ? 10 : undefined
+  }
+  if (page < 1 || !page) {
+    page = 1
+  }
+  return {
+    limit: pageSize,
+    offset: pageSize ? (page - 1) * pageSize : undefined
+  }
+}
+
+/**
  * getType 获取该 field 需要返回的类型
  *
  * @param type
@@ -72,5 +91,6 @@ function getAttrs (info, models, field) {
 }
 
 module.exports = {
-  getAttrs
+  getAttrs,
+  parsePage
 }
