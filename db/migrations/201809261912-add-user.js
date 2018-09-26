@@ -1,6 +1,6 @@
 module.exports = {
   up (queryInterface, Sequelize) {
-    return queryInterface.createTable('todo', {
+    return queryInterface.createTable('users', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -9,22 +9,25 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false
-      },
-      status: {
-        type: Sequelize.ENUM('DONE', 'UNDO'),
         allowNull: false,
-        defaultValue: 'UNDO'
+        unique: true
+      },
+      password: {
+        allowNull: false,
+        type: Sequelize.STRING
       },
       createTime: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.fn('now')
+      },
+      email: {
+        type: Sequelize.STRING
       }
     })
   },
 
   down (queryInterface, Sequelize) {
-    return queryInterface.dropTable('todo')
+    return queryInterface.dropTable('users')
   }
 }

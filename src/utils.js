@@ -1,5 +1,11 @@
+const crypto = require('crypto')
 const _ = require('lodash')
 const { simplifyAST } = require('graphql-sequelize')
+const config = require('../config')
+
+function hash (str) {
+  return crypto.createHash('md5').update(`${str}-${config.salt}`, 'utf8').digest('hex')
+}
 
 /**
  * 分页, 不传参数为获取全部，对于负值进行容错处理
@@ -92,5 +98,6 @@ function getAttrs (info, models, field) {
 
 module.exports = {
   getAttrs,
-  parsePage
+  parsePage,
+  hash
 }
