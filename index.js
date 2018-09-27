@@ -24,5 +24,11 @@ server.start({
   port: process.env.PORT,
   endpoint: '/graphql',
   subscriptions: '/subscriptions',
-  playground: '/playground'
+  playground: '/playground',
+  formatError (e) {
+    return e
+  },
+  formatResponse (res) {
+    return res
+  }
 }, ({ port }) => console.log(`Server is running on localhost:${port}`))
