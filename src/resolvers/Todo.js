@@ -3,7 +3,7 @@ const typeDef = `
     id: ID!
     name: String!
     createTime: DateTime!
-    user: User!
+    user: User! @relation
   }
 
   input TodoCreate {
