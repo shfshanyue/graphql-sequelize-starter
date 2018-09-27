@@ -7,6 +7,7 @@ const typeDef = `
     id: ID!
     name: String!
     createTime: DateTime!
+    todos: [Todo!] @findOption
   }
 
   type Mutation {
@@ -17,6 +18,14 @@ const typeDef = `
 
 const resolver = {
   User: {
+    todos (user, args, { models }, { attributes }) {
+      return models.todo.findAll({
+        where: {
+          userId: user.id
+        },
+        attributes
+      })
+    }
   },
   Mutation: {
     async createUserToken (root, { name, password }, { models }) {

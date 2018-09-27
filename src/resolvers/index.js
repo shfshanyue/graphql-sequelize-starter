@@ -6,6 +6,7 @@ const typeDef = `
   type Query {
     ping: String!
     me: User @findOption
+    users: [User!] @findOption
   }
 `
 
@@ -19,6 +20,9 @@ const resolver = {
         },
         attributes
       })
+    },
+    users (root, args, { models }, { attributes }) {
+      return models.users.findAll({ attributes })
     }
   }
 }

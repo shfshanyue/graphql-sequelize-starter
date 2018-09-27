@@ -4,8 +4,13 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.bulkInsert('users', [{
-        name: '山月',
+        name: 'shanyue',
         password: utils.hash('shanyue')
+      }], {}),
+
+      queryInterface.bulkInsert('users', [{
+        name: 'shuifeng',
+        password: utils.hash('shuifeng')
       }], {}),
 
       queryInterface.bulkInsert('todo', [{
@@ -16,7 +21,7 @@ module.exports = {
         userId: 1
       }, {
         name: '早起',
-        userId: 1
+        userId: 2
       }], {})
     ])
   },
