@@ -3,7 +3,7 @@ const _ = require('lodash')
 
 const { typeDefs, resolvers } = require('./src/resolvers')
 const directives = require('./src/directives')
-const { models } = require('./src/db')
+const { models } = require('./db')
 const auth = require('./src/auth')
 
 const server = new GraphQLServer({
