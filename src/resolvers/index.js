@@ -5,14 +5,14 @@ const _ = require('lodash')
 const typeDef = `
   type Query {
     ping: String!
-    user: User @findOptions
+    me: User @findOption
   }
 `
 
 const resolver = {
   Query: {
     ping: () => 'pong',
-    user ({ user }, args, { models }, { attributes }) {
+    me (root, args, { models, user }, { attributes }) {
       return models.users.findOne({
         where: {
           id: user.id
