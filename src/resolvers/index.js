@@ -18,7 +18,10 @@ const resolver = {
     },
     error () {
     },
-    me (root, args, { models, user }, { attributes }) {
+    me (root, args, { models, user, Exception }, { attributes }) {
+      if (!user) {
+        return new Exception('INVALID_TOKEN')
+      }
       return models.users.findOne({
         where: {
           id: user.id

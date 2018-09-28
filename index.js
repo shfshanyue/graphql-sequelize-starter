@@ -4,6 +4,7 @@ const _ = require('lodash')
 const { typeDefs, resolvers } = require('./src/resolvers')
 const directives = require('./src/directives')
 const { models } = require('./db')
+const Exception = require('./src/error')
 const auth = require('./src/auth')
 
 const server = new GraphQLServer({
@@ -15,7 +16,8 @@ const server = new GraphQLServer({
     const user = auth.verify(token)
     return {
       models,
-      user
+      user,
+      Exception
     }
   }
 })
@@ -26,7 +28,11 @@ server.start({
   subscriptions: '/subscriptions',
   playground: '/playground',
   formatError (e) {
-    return e
+    const httpStatus = _.get(e, 'originalError.httpStatus', 400)
+    return {
+      ...e,
+      httpStatus
+    }
   },
   formatResponse (res) {
     return res
