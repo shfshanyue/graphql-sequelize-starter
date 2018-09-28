@@ -7,6 +7,8 @@ const { models } = require('./db')
 const Exception = require('./src/error')
 const auth = require('./src/auth')
 
+const httpStatus = require('./middlewares/httpStatus')
+
 const server = new GraphQLServer({
   typeDefs,
   resolvers,
@@ -21,6 +23,8 @@ const server = new GraphQLServer({
     }
   }
 })
+
+server.express.use(httpStatus)
 
 server.start({
   port: process.env.PORT,
@@ -38,3 +42,7 @@ server.start({
     return res
   }
 }, ({ port }) => console.log(`Server is running on localhost:${port}`))
+
+process.on('unhandledRejection', error => {
+  console.error(error)
+})
