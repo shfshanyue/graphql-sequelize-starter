@@ -2,3 +2,4 @@ config.json
 db.json
 node_modules
 db/_schemas
+.vscode
