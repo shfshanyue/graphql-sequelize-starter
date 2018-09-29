@@ -26,7 +26,7 @@ const resolver = {
           name,
           password: hash(password)
         },
-        attributes: ['id'],
+        attributes: ['id', 'role'],
         raw: true
       })
       if (!user) {
