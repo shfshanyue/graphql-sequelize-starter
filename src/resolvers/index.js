@@ -1,11 +1,13 @@
 const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
+const axios = require('axios')
 
 const typeDef = `
   type Query {
     ping: String!
     error: String!
+    reqError: String!
     me: User @findOption @auth
     users: [User!] @findOption
   }
@@ -17,6 +19,14 @@ const resolver = {
       return 'pong'
     },
     error () {
+    },
+    reqError (root, args, { Exception }) {
+      // ECONREFUSED error
+      return axios.get('http://localhost:8080').catch(err => {
+        throw new Exception(err.message, {
+          config: err.config
+        })
+      })
     },
     me (root, args, { models, user, Exception }, { attributes }) {
       return models.users.findOne({
