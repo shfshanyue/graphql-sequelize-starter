@@ -6,8 +6,9 @@ const axios = require('axios')
 const typeDef = `
   type Query {
     ping: String!
-    error: String!
-    reqError: String!
+    error: Int
+    reqError: Int
+    cache: Int! @cache
     me: User @findOption @auth
     users: [User!] @findOption @auth(role: ADMIN)
   }
@@ -26,6 +27,11 @@ const resolver = {
         throw new Exception(err.message, {
           config: err.config
         })
+      })
+    },
+    cache () {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(100), 10000)
       })
     },
     me (root, args, { models, user, Exception }, { attributes }) {

@@ -8,7 +8,9 @@ const redis = new Redis({
   password: config.redis.password
 })
 
-const redisLoader = new DataLoader(keys => redis.mget(keys))
+const redisLoader = new DataLoader(keys => redis.mget(keys), {
+  cache: false
+})
 
 redis.get = (key) => redisLoader.load(key)
 

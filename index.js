@@ -33,6 +33,7 @@ server.start({
   endpoint: '/graphql',
   subscriptions: '/subscriptions',
   playground: '/playground',
+  rootValue: {},
   formatError (e) {
     const httpStatus = _.get(e, 'originalError.httpStatus', 400)
     return {
