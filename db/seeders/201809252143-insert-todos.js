@@ -13,6 +13,12 @@ module.exports = {
         password: utils.hash('shuifeng')
       }], {}),
 
+      queryInterface.bulkInsert('users', [{
+        name: 'admin',
+        password: utils.hash('admin'),
+        role: 'ADMIN'
+      }], {}),
+
       queryInterface.bulkInsert('todo', [{
         name: '喝水',
         userId: 1

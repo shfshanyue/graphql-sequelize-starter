@@ -9,7 +9,7 @@ const typeDef = `
     error: String!
     reqError: String!
     me: User @findOption @auth
-    users: [User!] @findOption
+    users: [User!] @findOption @auth(role: ADMIN)
   }
 `
 
