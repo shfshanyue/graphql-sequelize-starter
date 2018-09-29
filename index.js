@@ -5,6 +5,7 @@ const { typeDefs, resolvers } = require('./src/resolvers')
 const directives = require('./src/directives')
 const { models } = require('./db')
 const Exception = require('./src/error')
+const redis = require('./src/redis')
 const auth = require('./src/auth')
 
 const httpStatus = require('./middlewares/httpStatus')
@@ -18,6 +19,7 @@ const server = new GraphQLServer({
     const user = auth.verify(token)
     return {
       models,
+      redis,
       user,
       Exception
     }
