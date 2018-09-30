@@ -1,9 +1,15 @@
 const typeDef = `
+  enum TodoStatus {
+    DONE 
+    UNDO
+  }
+
   type Todo @sql(table: "todo") {
     id: ID!
     name: String!
     createTime: DateTime!
     user: User! @relation
+    status: TodoStatus!
   }
 
   input TodoCreate {
@@ -12,7 +18,8 @@ const typeDef = `
 
   input TodoUpdate {
     id: ID!
-    name: String!
+    name: String
+    status: TodoStatus
   }
 
   extend type Mutation {
