@@ -4,6 +4,20 @@ const _ = require('lodash')
 const axios = require('axios')
 
 const typeDef = `
+  input Like {
+    like: String!
+  }
+
+  input Order {
+    field: String!
+    asc: Boolean = true
+  }
+
+  input TimeBetween {
+    # [DateTime, DateTime] 表示起止时间
+    between: [DateTime!]!
+  }
+
   type Query {
     ping: String!
     error: Int

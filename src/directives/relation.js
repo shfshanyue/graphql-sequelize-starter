@@ -34,7 +34,8 @@ class RelationDirective extends SchemaDirectiveVisitor {
       if (_.isEmpty(args)) {
         return root.get(as) || _.get(root, `get${_.upperFirst(as)}`).bind(root)({
           // attributes 自动注入
-          attributes
+          attributes,
+          order: [['id', 'desc']]
         })
       }
 
