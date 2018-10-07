@@ -6,19 +6,19 @@ const typeDef = `
 
   type Todo @sql(table: "todo") {
     id: ID!
-    name: String!
+    name: String! @constraint(minLength: 2)
     createTime: DateTime!
     user: User! @relation
     status: TodoStatus!
   }
 
   input TodoCreate {
-    name: String!
+    name: String! @constraint(minLength: 2)
   }
 
   input TodoUpdate {
     id: ID!
-    name: String
+    name: String @constraint(minLength: 2)
     status: TodoStatus
   }
 
@@ -43,7 +43,7 @@ const resolver = {
         where: {
           id: todo.id
         }
-      })
+      }).then(res => res[0])
     }
   }
 }
