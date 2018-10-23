@@ -20,9 +20,11 @@ const typeDef = `
 
   type Query {
     ping: String!
+
     error: Int
     reqError: Int
-    cache: Int! @cache(age: '1h')
+    cache: Int! @cache(age: "1h")
+
     me: User @findOption @auth
     users: [User!] @findOption @auth(role: ADMIN)
   }
@@ -34,6 +36,7 @@ const resolver = {
       return 'pong'
     },
     error () {
+      return 'a'
     },
     reqError (root, args, { Exception }) {
       // ECONREFUSED error

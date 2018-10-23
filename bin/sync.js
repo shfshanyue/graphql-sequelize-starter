@@ -1,6 +1,6 @@
 const SequelizeAuto = require('sequelize-auto')
 const rimraf = require('rimraf')
-const { db } = require('../config')
+const { pg: db } = require('../config')
 
 const SCHEMA_PATH = `${__dirname}/../db/_schemas`
 
@@ -8,7 +8,7 @@ rimraf(SCHEMA_PATH, () => {
   console.log('delete schema path DONE!')
 })
 
-const auto = new SequelizeAuto(db.database, db.username, db.password, {
+const auto = new SequelizeAuto('todos', db.username, db.password, {
   dialect: 'postgres',
   host: db.host,
   port: db.port,

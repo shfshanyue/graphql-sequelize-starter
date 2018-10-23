@@ -3,9 +3,9 @@ const fs = require('fs')
 const { createContext } = require('dataloader-sequelize')
 const association = require('./association')
 
-const { db } = require('../config')
+const { pg: db } = require('../config')
 
-const sequelize = new Sequelize(db.database, db.username, db.password, {
+const sequelize = new Sequelize('todos', db.username, db.password, {
   dialect: 'postgres',
   host: db.host,
   port: db.port
