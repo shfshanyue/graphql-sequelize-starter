@@ -1,0 +1,4 @@
+{
+  "salt": "hello",
+  "jwtSecret": "world"
+}
