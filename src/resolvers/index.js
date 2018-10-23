@@ -22,7 +22,7 @@ const typeDef = `
     ping: String!
     error: Int
     reqError: Int
-    cache: Int! @cache
+    cache: Int! @cache(age: '1h')
     me: User @findOption @auth
     users: [User!] @findOption @auth(role: ADMIN)
   }
