@@ -40,6 +40,7 @@ const resolver = {
     },
     reqError (root, args, { Exception }) {
       // ECONREFUSED error
+      // 尽量都显式地抛出异常，方便在 sentry 中定位
       return axios.get('http://localhost:8080').catch(err => {
         throw new Exception(err.message, {
           config: err.config
