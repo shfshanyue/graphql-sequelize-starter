@@ -4,6 +4,7 @@ const Sentry = require('@sentry/node')
 
 const { typeDefs, resolvers } = require('./src/resolvers')
 const directives = require('./src/directives')
+const middlewares = require('./src/middlewares')
 const { models } = require('./db')
 const config = require('./config')
 const Exception = require('./src/error')
@@ -22,6 +23,7 @@ const server = new GraphQLServer({
   typeDefs,
   resolvers,
   schemaDirectives: directives,
+  middlewares,
   context (req) {
     const token = _.get(req, 'request.headers.authorization', '').replace('Bearer ', '')
     const user = auth.verify(token)
@@ -35,7 +37,8 @@ const server = new GraphQLServer({
       models,
       redis,
       user,
-      Exception
+      Exception,
+      Sentry
     }
   }
 })
@@ -53,7 +56,7 @@ server.start({
     const httpStatus = _.get(originalError, 'httpStatus', 400)
     if (httpStatus !== 401 && httpStatus !== 403) {
       Sentry.configureScope(scope => {
-        scope.setExtra('GraphQLError', e)
+        scope.setExtra('GraphQLError', { ...e })
         Sentry.captureException(e.originalError)
       })
     }
