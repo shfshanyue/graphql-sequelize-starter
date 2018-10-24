@@ -28,9 +28,19 @@ const server = new GraphQLServer({
     const token = _.get(req, 'request.headers.authorization', '').replace('Bearer ', '')
     const user = auth.verify(token)
     Sentry.configureScope((scope) => {
-      scope.setUser({
-        ...user,
-        token
+      scope.addEventProcessor(async event => {
+        const { body, headers, originalUrl, method, connection } = req.request
+        event.request = {
+          method,
+          headers,
+          data: body,
+          url: `http://${headers.host}${originalUrl}`
+        }
+        event.user = {
+          ...event.user,
+          ip_address: _.get(connection, 'remoteAddress')
+        }
+        return event
       })
     })
     return {
