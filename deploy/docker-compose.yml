@@ -1,0 +1,15 @@
+version: "3"
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    environment:
+      NODE_ENV: development
+      PORT: 80
+    container_name: sls-graphql
+    restart: always
+    labels:
+      - "traefik.frontend.rule=Host:todos.xiange.tech"
+    volumes:
+      - /etc/resolv.conf:/etc/resolv.conf
