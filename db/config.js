@@ -6,7 +6,7 @@ module.exports = {
   database: 'todos',
   host: db.host,
   port: db.port,
-  dialect: 'sequelize',
+  dialect: 'postgres',
   logging (sql) {
     console.log(sql)
   }

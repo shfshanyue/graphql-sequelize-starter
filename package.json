@@ -6,14 +6,15 @@
   "scripts": {
     "prestart": "npm run consul && npm run migrate && npm run sync",
     "start": "node index.js",
+    "dev": "PORT=5000 NODE_ENV=development nodemon",
     "sync": "node bin/sync.js",
     "consul": "node bin/pullConfig",
     "lint": "eslint --ignore-path .gitignore .",
     "lint:fix": "eslint --ignore-path .gitignore --fix .",
-    "migrate": "sequelize db:migrate --config ./config/db.json --migrations-path ./db/migrations --models-path ./db/_schemas",
-    "migrate:undo": "sequelize db:migrate:undo --config ./config/db.json --migrations-path ./db/migrations --models-path ./db/_schemas",
-    "seed": "sequelize db:seed:all --config ./config/db.json --seeders-path ./db/seeders --models-path ./db/_schemas",
-    "seed:undo": "sequelize db:seed:undo:all --config ./config/db.json --seeders-path ./db/seeders --models-path ./db/_schemas"
+    "migrate": "sequelize db:migrate --config ./db/config.js --migrations-path ./db/migrations --models-path ./db/_schemas",
+    "migrate:undo": "sequelize db:migrate:undo --config ./db/config.js --migrations-path ./db/migrations --models-path ./db/_schemas",
+    "seed": "sequelize db:seed:all --config ./db/config.js --seeders-path ./db/seeders --models-path ./db/_schemas",
+    "seed:undo": "sequelize db:seed:undo:all --config ./db/config.js --seeders-path ./db/seeders --models-path ./db/_schemas"
   },
   "author": "",
   "license": "ISC",
@@ -43,5 +44,8 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.39.0",
     "sequelize-auto": "^0.4.29"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
   }
 }
