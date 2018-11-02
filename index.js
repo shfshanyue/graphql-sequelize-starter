@@ -10,12 +10,15 @@ const config = require('./config')
 const Exception = require('./src/error')
 const redis = require('./src/redis')
 const auth = require('./src/auth')
+const logger = require('./lib/logger')
 
 const httpStatus = require('./middlewares/httpStatus')
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 Sentry.init({
   dsn: config.sentryDSN,
-  debug: process.env.NODE_ENV !== 'production',
+  debug: !isProduction,
   environment: process.env.NODE_ENV || 'development'
 })
 
@@ -27,9 +30,10 @@ const server = new GraphQLServer({
   context (req) {
     const token = _.get(req, 'request.headers.authorization', '').replace('Bearer ', '')
     const user = auth.verify(token)
+    const { body, headers, originalUrl, method, connection } = req.request
+    logger.info(`${_.get(body, 'operationName')}`, { label: 'Request', request: body })
     Sentry.configureScope((scope) => {
       scope.addEventProcessor(async event => {
-        const { body, headers, originalUrl, method, connection } = req.request
         event.request = {
           method,
           headers,
