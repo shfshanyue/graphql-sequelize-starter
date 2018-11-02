@@ -4,7 +4,7 @@ const Promise = require('bluebird')
 const _ = require('lodash')
 const fs = require('fs')
 
-const consul = require('../src/consul')
+const consul = require('../lib/consul')
 const { project, dependencies: keys } = require('../config/consul')
 const projectConfig = require('../config/project')
 
