@@ -4,6 +4,9 @@ const _ = require('lodash')
 const axios = require('axios')
 
 const typeDef = `
+  scalar ConstraintString
+  scalar ConstraintNumber
+
   input Like {
     like: String!
   }
