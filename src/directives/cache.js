@@ -10,13 +10,15 @@ class CacheDirective extends SchemaDirectiveVisitor {
     field.resolve = async (root, args, ctx, info) => {
       const age = this.args.age || 300
       const expire = _.isNumber(age) ? age : ms(age) / 1000
-      const key = `${info.parentType.name}:${root.id || 0}:${info.fieldName}`
+      const id = root.id ? `${root.id}:` : ''
+      // key: User:10086:age({cache: 3})
+      const key = `${info.parentType.name}:${id}${field.name}(${JSON.stringify(args)})`
       const value = await ctx.redis.get(key)
       if (value) {
-        return value
+        return JSON.parse(value)
       }
       const newValue = await resolve.call(this, root, args, ctx, info)
-      ctx.redis.set(key, newValue, 'EX', expire)
+      ctx.redis.set(key, JSON.stringify(newValue), 'EX', expire)
       return newValue
     }
   }
