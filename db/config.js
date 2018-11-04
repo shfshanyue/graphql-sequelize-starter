@@ -1,4 +1,5 @@
 const { pg: db } = require('../config')
+const logger = require('../lib/logger')
 
 module.exports = {
   username: db.username,
@@ -7,7 +8,7 @@ module.exports = {
   host: db.host,
   port: db.port,
   dialect: 'postgres',
-  logging (sql) {
-    console.log(sql)
+  logging (sql, { tableNames, type, model, ...rest }) {
+    logger.info(sql, { label: 'SQL', tables: tableNames, type, model: model.name })
   }
 }

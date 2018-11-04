@@ -3,13 +3,9 @@ const fs = require('fs')
 const { createContext } = require('dataloader-sequelize')
 const association = require('./association')
 
-const { pg: db } = require('../config')
+const config = require('./config')
 
-const sequelize = new Sequelize('todos', db.username, db.password, {
-  dialect: 'postgres',
-  host: db.host,
-  port: db.port
-})
+const sequelize = new Sequelize(config)
 
 // import all schemas
 fs.readdirSync(`${__dirname}/_schemas`).forEach((file) => {

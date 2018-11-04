@@ -23,8 +23,8 @@ const typeDef = `
   }
 
   extend type Mutation {
-    createTodo (todo: TodoCreate!): Todo
-    updateTodo (todo: TodoUpdate!): Boolean
+    createTodo (todo: TodoCreate!): Todo @auth
+    updateTodo (todo: TodoUpdate!): Boolean @auth
   }
 `
 

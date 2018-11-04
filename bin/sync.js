@@ -9,9 +9,6 @@ rimraf(SCHEMA_PATH, () => {
 })
 
 const auto = new SequelizeAuto('todos', db.username, db.password, {
-  dialect: 'postgres',
-  host: db.host,
-  port: db.port,
   additional: {
     timestamps: false
   },
