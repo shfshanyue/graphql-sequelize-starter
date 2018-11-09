@@ -7,7 +7,8 @@ services:
     environment:
       NODE_ENV: development
       PORT: 80
-    container_name: sls-graphql
+    expose:
+      - 80
     restart: always
     labels:
       - "traefik.frontend.rule=Host:todos.xiange.tech"

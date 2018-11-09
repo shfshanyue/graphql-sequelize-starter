@@ -9,6 +9,6 @@ module.exports = {
   port: db.port,
   dialect: 'postgres',
   logging (sql, { tableNames, type, model, ...rest }) {
-    logger.info(sql, { label: 'SQL', tables: tableNames, type, model: model.name })
+    logger.info(sql, { label: 'SQL', tables: tableNames, type, model: model && model.name })
   }
 }
